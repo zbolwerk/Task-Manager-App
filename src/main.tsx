@@ -6,7 +6,7 @@ import App from './App.tsx'
 
 createRoot(document.getElementById('root')!).render(
 <React.StrictMode>
-    <BrowserRouter> {/* ✅ Router wraps App here */}
+    <BrowserRouter>
       <App />
     </BrowserRouter>
   </React.StrictMode>,
