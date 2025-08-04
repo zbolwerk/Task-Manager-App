@@ -1,0 +1,16 @@
+.topnav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 50;
+}
+
+.nav-button {
+  margin-top: 1rem;
+  margin-right: 1rem; /* Adjust as needed */
+}
+
+.nav-button:last-child {
+  margin-right: 0;
+}
