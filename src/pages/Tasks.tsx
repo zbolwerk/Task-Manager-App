@@ -9,33 +9,46 @@ interface Task {
 
 export default function Tasks() {
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     fetch("http://localhost:3001/tasks")
       .then((res) => res.json())
-      .then((data) => setTasks(data))
-      .catch((err) => console.error("Error fetching tasks:", err));
+      .then((data) => {
+        setTasks(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch tasks:", err);
+        setLoading(false);
+      });
   }, []);
 
   return (
     <div>
+      <nav className="topnav bg-blue-600 text-white p-4 flex space-x-4 shadow-md"></nav>
       <PageTitle />
       <button
         onClick={() => navigate("/create-task")}
-        className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+        className="nav-button bg-gray-500 px-4 py-2 rounded hover:bg-gray-600 transition"
       >
-        Create New Task
+        Create Task
       </button>
-      
-{/*       <ul>
-        {tasks.map((task) => (
-          <li key={task.id} className="mb-2">
-            {task.title}
-          </li>
-        ))}
-      </ul>  */}
-      
+
+      {loading ? (
+        <p>Loading tasks...</p>
+      ) : tasks.length === 0 ? (
+        <p>No tasks found.</p>
+      ) : (
+        <ul className="list-disc pl-6 space-y-2">
+          {tasks.map((task) => (
+            <li key={task.id} className="text-lg">
+              {task.title}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
