@@ -1,6 +1,7 @@
 .largeInput {
     width: 400px;
-    height: 48px;
+    height: 20;
     font-size: 1rem;
-    padding: 10px 16px;
+    padding: 10px;
+    margin: 10px;
   }

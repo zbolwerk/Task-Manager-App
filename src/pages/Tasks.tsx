@@ -1,11 +1,18 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PageTitle from "../components/PageTitle/PageTitle";
+import TaskTable from "../components/TaskTable/TaskTable";
+
 
 interface Task {
-  id: number;
-  title: string;
-}
+    id: number;
+    title: string;
+    description: string;
+    priority: number;
+    dueDate: number;
+    timeEffort: number;
+    interestLevel: number;
+  }
 
 export default function Tasks() {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -41,13 +48,7 @@ export default function Tasks() {
       ) : tasks.length === 0 ? (
         <p>No tasks found.</p>
       ) : (
-        <ul className="list-disc pl-6 space-y-2">
-          {tasks.map((task) => (
-            <li key={task.id} className="text-lg">
-              {task.title}
-            </li>
-          ))}
-        </ul>
+        <TaskTable tasks={tasks} />
       )}
     </div>
   );
