@@ -9,25 +9,30 @@ app.use(cors());
 
 const TASKS_FILE = "./tasks.json";
 
-// GET all tasks
+// Load tasks
+function loadTasks() {
+  if (!fs.existsSync(TASKS_FILE)) return [];
+  return JSON.parse(fs.readFileSync(TASKS_FILE, "utf8"));
+}
+
+// Save tasks
+function saveTasks(tasks) {
+  fs.writeFileSync(TASKS_FILE, JSON.stringify(tasks, null, 2));
+}
+
+// Get tasks
 app.get("/tasks", (req, res) => {
-  const tasks = JSON.parse(fs.readFileSync(TASKS_FILE, "utf-8"));
+  const tasks = loadTasks();
   res.json(tasks);
 });
 
-
-// POST a new task
+// POST: Add new task
 app.post("/tasks", (req, res) => {
-  const { title } = req.body;
-  if (!title) {
-    return res.status(400).json({ error: "Title is required" });
-  }
-
-  const tasks = JSON.parse(fs.readFileSync(TASKS_FILE, "utf-8"));
-  const newTask = { id: Date.now(), title };
+  const newTask = req.body;
+  const tasks = loadTasks();
+  newTask.id = Date.now();
   tasks.push(newTask);
-  fs.writeFileSync(TASKS_FILE, JSON.stringify(tasks, null, 2));
-
+  saveTasks(tasks);
   res.status(201).json(newTask);
 });
 

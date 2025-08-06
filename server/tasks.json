@@ -1,10 +1,20 @@
 [
   {
     "id": 1,
-    "title": "Buy groceries"
+    "taskName": "Buy groceries",
+    "description": "Get groceries for the picnic later this week",
+    "priority": 1,
+    "dueDate": 2,
+    "timeEffort": 30,
+    "interestLevel": 1
   },
   {
     "id": 2,
-    "title": "Finish homework"
+    "taskName": "Finish Homework",
+    "description": "Math and History assignments",
+    "priority": 1,
+    "dueDate": 1,
+    "timeEffort": 60,
+    "interestLevel": 2
   }
 ]

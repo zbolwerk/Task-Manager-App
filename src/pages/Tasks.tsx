@@ -1,18 +1,27 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PageTitle from "../components/PageTitle/PageTitle";
-import TaskTable from "../components/TaskTable/TaskTable";
-
+import DataTable from "../components/DataTable/DataTable";
 
 interface Task {
-    id: number;
-    title: string;
-    description: string;
-    priority: number;
-    dueDate: number;
-    timeEffort: number;
-    interestLevel: number;
-  }
+  id: number;
+  taskName: string;
+  description: string;
+  priority: number;
+  dueDate: number;
+  timeEffort: number;
+  interestLevel: number;
+}
+
+const columns: { key: keyof Task; label: string }[] = [
+  { key: "id", label: "ID" },
+  { key: "taskName", label: "TaskName" },
+  { key: "description", label: "Description" },
+  { key: "priority", label: "Priority" },
+  { key: "dueDate", label: "DueDate" },
+  { key: "timeEffort", label: "TimeEffort" },
+  { key: "interestLevel", label: "InterestLevel" },
+];
 
 export default function Tasks() {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -32,6 +41,17 @@ export default function Tasks() {
       });
   }, []);
 
+  const handleEdit = (task: Task) => {
+    alert(`Edit: ${task.taskName}`);
+    // Replace this with a modal or a route change to an edit page
+  };
+
+  const handleDelete = (task: Task) => {
+    if (confirm(`Delete task "${task.taskName}"?`)) {
+      setTasks((prev) => prev.filter((t) => t.id !== task.id));
+    }
+  };
+
   return (
     <div>
       <nav className="topnav bg-blue-600 text-white p-4 flex space-x-4 shadow-md"></nav>
@@ -48,7 +68,12 @@ export default function Tasks() {
       ) : tasks.length === 0 ? (
         <p>No tasks found.</p>
       ) : (
-        <TaskTable tasks={tasks} />
+        <DataTable
+          columns={columns}
+          data={tasks}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+        />
       )}
     </div>
   );
