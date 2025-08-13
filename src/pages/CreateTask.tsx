@@ -1,14 +1,12 @@
 import { useState } from "react";
 import PageTitle from "../components/PageTitle/PageTitle";
 import CreateTaskForm from "../components/CreateTaskForm";
-/* import InputComponent from "../components/SingleInput/SingleInput";
- */
+
 export default function CreateTask() {
-  const [id, setID] = useState("");
   const [taskName, setTaskName] = useState("");
   const [description, setDescription] = useState("");
   const [priority, setPriority] = useState(1);
-  const [dueDate, setDueDate] = useState("");
+  const [dueDate, setDueDate] = useState<string>("");
   const [timeEffort, setTimeEffort] = useState(1);
   const [interestLevel, setInterestLevel] = useState(1);
 
@@ -18,11 +16,10 @@ export default function CreateTask() {
       return;
     }
     const task = {
-      id: Date.now(),
       taskName: taskName.trim(),
       description,
       priority: Number(priority),
-      dueDate: new Date(dueDate).getTime(),
+      dueDate,
       timeEffort: Number(timeEffort),
       interestLevel: Number(interestLevel),
     };
@@ -36,12 +33,11 @@ export default function CreateTask() {
         body: JSON.stringify(task),
       });
 
-      const responseText = await res.text();
+      const responseText = await res.json();
       console.log("Response from server:", responseText);
 
       if (res.ok) {
         alert("Task created!");
-        setID("");
         setTaskName("");
         setDescription("");
         setPriority(1);

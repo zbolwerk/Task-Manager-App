@@ -28,9 +28,11 @@ app.get("/tasks", (req, res) => {
 
 // POST: Add new task
 app.post("/tasks", (req, res) => {
-  const newTask = req.body;
   const tasks = loadTasks();
-  newTask.id = Date.now();
+  const newId = tasks.length > 0
+  ? Math.max(...tasks.map(t => t.id)) + 1
+  : 1;
+  const newTask = {id: newId, ...req.body};
   tasks.push(newTask);
   saveTasks(tasks);
   res.status(201).json(newTask);

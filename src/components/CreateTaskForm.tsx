@@ -67,9 +67,9 @@ const CreateTaskForm: React.FC<CreateTaskFormProps> = ({
       <div>
         <label className="block font-medium">Due Date:</label>
         <input
-          type="date"
+          type="Date"
           value={dueDate}
-          onChange={(e) => setDueDate(e.target.value)}
+          onChange={(e) => setDueDate(e.target.value.toString())}
           className="border p-2 w-full rounded"
         />
       </div>

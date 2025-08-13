@@ -4,11 +4,11 @@ import PageTitle from "../components/PageTitle/PageTitle";
 import DataTable from "../components/DataTable/DataTable";
 
 interface Task {
-  id: number;
+  id: string;
   taskName: string;
   description: string;
   priority: number;
-  dueDate: number;
+  dueDate: string;
   timeEffort: number;
   interestLevel: number;
 }

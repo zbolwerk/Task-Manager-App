@@ -1,4 +1,4 @@
-interface DataTableProps<T> {
+interface DataTableProps<T extends { id: number }> {
     columns: { key: keyof T; label: string }[];
     data: T[];
     onEdit?: (row: T) => void;
@@ -20,7 +20,7 @@ interface DataTableProps<T> {
                 {column.label}
               </th>
             ))}
-            {(onEdit || onDelete) && <th className="px-4 py-2 border"></th>}
+            {(onEdit || onDelete) && <th className="px-4 py-2 border">I</th>}
           </tr>
         </thead>
         <tbody>
